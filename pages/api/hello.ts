@@ -1,13 +1,18 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
+import { uploadToS3 } from "../../libs/utils/aws";
 
-type Data = {
-  name: string
+interface ResponseType {
+  ok: boolean;
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<ResponseType>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  console.log(req.body);
+  // const fileUrl = uploadToS3(file, "marvel", "trainers");
+  // console.log(fileUrl);
+
+  res.status(200).json({ ok: true });
 }

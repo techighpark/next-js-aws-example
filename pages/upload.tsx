@@ -11,27 +11,34 @@ interface UploadForm {
 }
 
 const Home: NextPage = () => {
-  const [thumb, setThumb] = useState<string>();
+  const [thumb, setThumb] = useState<string[]>();
+  const [progress, setProgress] = useState<number>(0);
   const { register, handleSubmit, watch } = useForm<UploadForm>();
 
-  const onValid = (data: UploadForm) => {
-    console.log(data);
+  const onValid = async (data: UploadForm) => {
+    const hello = await fetch("/api/hello", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data.photo[0]),
+    });
+    console.log(hello);
   };
-
-  const photo = watch("photo");
-  useEffect(() => {
-    if (photo && photo.length > 0) {
-      const file = photo[0];
-      setThumb(URL.createObjectURL(file));
-    }
-  }, [photo]);
+  const onChange = () => {
+    console.log("change");
+  };
 
   return (
     <div>
       <h3>Next JS AWS Study</h3>
       <div>Image Upload</div>
       <form onSubmit={handleSubmit(onValid)}>
-        <input {...register("photo")} type="file" accept="image/*" />
+        <input
+          {...register("photo")}
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={onChange}
+        />
         <input type="submit" />
       </form>
     </div>
