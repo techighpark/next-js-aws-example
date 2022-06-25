@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { NextApiRequest, NextPage } from "next";
+import type { NextPage } from "next";
 
 const Axios: NextPage = () => {
   const axiosFn = async () => {

@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import { useCallback, useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 // interface Photo {
